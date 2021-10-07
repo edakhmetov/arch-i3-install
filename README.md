@@ -1,4 +1,4 @@
-#Step by step installation of Arch Linux with i3 window manager
+# Step by step installation of Arch Linux with i3 window manager
 
 ## load keymaps
 ``` 
@@ -10,8 +10,7 @@ loadkeys ru
 ```
 ip a
 ```
-##### if connected with ethernet, ip will available automatically
-following is for the wifi
+##### if connected with ethernet, ip will be available automatically, to connect wifi do following
 ```
 iwctl
 ```
