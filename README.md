@@ -26,11 +26,10 @@ station [device-name] scan
 ```
 station [device-name] get-networks
 ```
-##### use device name and network name from previous steps
+##### use device name and network name from previous steps, you will be prompted to enter your wi-fi password
 ```
 station [device-name] connect [network-name]
 ```
-##### you will be prompted to enter your wi-fi password
 ```
 exit
 ```
@@ -44,8 +43,46 @@ ip a
 timedatectl set-ntp true
 ```
 
-## Use reflector to setup mirrorlist
+## Use reflector to setup mirrorlist then synchronize them
 ```
 reflector -c Canada -a 6 --sort rate --save /etc/pacman.d/mirrorlist
+pacman -Syy
 ```
 
+## Disk partitioning
+##### get the disk name, which will be used in next steps
+```
+lsblk 
+```
+##### using gdisk, create uefi partition, swap partition, and root partition
+```
+gdisk /dev/sda
+```
+##### creating uefi partition
+```
+n
+[empty]
+[empty]
++260M
+ef00
+```
+##### creating swap partition
+```
+n
+[empty]
+[empty]
++4G
+8200
+```
+##### creating root partition
+```
+n
+[empty]
+[empty]
+[empty]
+[empty]
+```
+##### write changes to the disk
+```
+w
+```
