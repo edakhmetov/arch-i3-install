@@ -1,10 +1,10 @@
 Step by step installation of Arch Linux with i3 window manager
 
-#### load keymaps 
+## load keymaps 
 localectl list-keymaps | grep ru
 loadkeys ru
 
-### IP setup
+## IP setup
 ```
 ip a
 ```
@@ -37,3 +37,14 @@ type again to confirm that you have ip
 ```
 ip a
 ```
+
+## Synchronize the network time protocols
+```
+timedatectl set-ntp true
+```
+
+## use reflector to setup mirrorlist
+```
+reflector -c Canada -a 6 --sort rate --save /etc/pacman.d/mirrorlist
+```
+
