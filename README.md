@@ -76,6 +76,17 @@ mkswap /dev/sda2		#format swap partition
 swapon /dev/sda2		#activate swap
 mkfs.ext4 /dev/sda3		#format root partition
 ```
-
-
-
+# Mount Partitions
+```
+mount /dev/sda3 /mnt		#mount root directory
+mkdir -p /mnt/boot/efi		#create boot directory
+mount /dev/sda1 /mnt/boot/efi	#mount boot directory
+```
+# Install base system
+```
+pacstrap /mnt base linux linux-firmware git nano intel-ucode
+```
+# Generate filesystem table
+```
+genfstab -U /mnt >> /mnt/etc/fstab
+```
