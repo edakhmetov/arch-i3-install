@@ -90,3 +90,4 @@ pacstrap /mnt base linux linux-firmware git nano intel-ucode
 ```
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
+# Now the installation
