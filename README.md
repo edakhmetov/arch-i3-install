@@ -36,7 +36,7 @@ reflector -c Canada -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syy
 ```
 # Disk partitioning
-## Using gdisk, create uefi partition, swap partition, and root partition
+Using gdisk, create uefi partition, swap partition, and root partition
 ```
 lsblk	#get the disk name, which will be used in next steps
 
