@@ -14,64 +14,56 @@ ip a # if connected with ethernet, ip will be available automatically
 ```
 iwctl
 
-device list # shows list of wireless adapters
+device list	#shows list of wireless adapters
 
-station [device-name] scan # use the name from the device list
+station [device-name] scan	#use the name from the device list
 
-station [device-name] get-networks # show list of available networks
+station [device-name] get-networks	#show list of available networks
 
-station [device-name] connect [network-name] # Prompted to enter wi-fi password
+station [device-name] connect [network-name]	#enter wi-fi password when prompted
 
 exit
 
-ip a # type again to confirm that you have ip
+ip a	#type again to confirm that you have ip
 ```
-
-## Synchronize the network time protocols
+# Synchronize the network time protocols
 ```
 timedatectl set-ntp true
 ```
-
-## Use reflector to setup mirrorlist then synchronize them
+# Use reflector to setup mirrorlist then synchronize them
 ```
 reflector -c Canada -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syy
 ```
+# Disk partitioning
+## Using gdisk, create uefi partition, swap partition, and root partition
+```
+lsblk	#get the disk name, which will be used in next steps
 
-## Disk partitioning
-##### get the disk name, which will be used in next steps
-```
-lsblk 
-```
-##### using gdisk, create uefi partition, swap partition, and root partition
-```
-gdisk /dev/sda
-```
-##### creating uefi partition
-```
-n
-[empty]
-[empty]
-+260M
-ef00
-```
-##### creating swap partition
-```
-n
-[empty]
-[empty]
-+4G
-8200
-```
-##### creating root partition
-```
-n
-[empty]
-[empty]
-[empty]
-[empty]
-```
-##### write changes to the disk
-```
-w
+gdisk /dev/sda	#sda is the name of the disk from previous step
+
+n	#after each partition, type n to create new partition
+
+# uefi partition
+
+[default]		#partition number
+[default]		#first sector (default is ok)
++260M		#last sector (260mb for UEFI)
+ef00		#filesystem type code (ef00 for UEFI)
+
+# swap partition
+
+[default]
+[default]
++4G		#4gb swap
+8200		#8200 for swap
+
+# creating root partition (accept all defaults if this is the last partition)
+
+[default]
+[default]
+[default]
+[default]
+
+w 	#write changes to the disk
 ```
