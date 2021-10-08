@@ -84,7 +84,7 @@ mount /dev/sda1 /mnt/boot/efi	#mount boot directory
 ```
 # Install base system
 ```
-pacstrap /mnt base linux linux-firmware git nano intel-ucode
+pacstrap /mnt base linux linux-firmware git nano intel-ucode		#or type amd-ucode if you have amd processor
 ```
 # Generate filesystem table
 ```
