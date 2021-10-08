@@ -69,7 +69,7 @@ w 		#write changes to the disk
 
 lsblk		#confirm that you created proper partitions
 ```
-#Format partitions
+# Format partitions
 ```
 mkfs.vfat /dev/sda1		#format UEFI partition
 mkswap /dev/sda2		#format swap partition
