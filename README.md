@@ -48,22 +48,34 @@ n	#after each partition, type n to create new partition
 
 [default]		#partition number
 [default]		#first sector (default is ok)
-+260M		#last sector (260mb for UEFI)
-ef00		#filesystem type code (ef00 for UEFI)
++260M			#last sector (260mb for UEFI)
+ef00			#partition type code (ef00 for UEFI)
 
 # swap partition
 
 [default]
 [default]
 +4G		#4gb swap
-8200		#8200 for swap
+8200		#8200 for linux swap
 
 # creating root partition (accept all defaults if this is the last partition)
 
 [default]
 [default]
-[default]
-[default]
+[default]	#takes all of the remaining space
+[default]	#8300 for linux filesystem
 
-w 	#write changes to the disk
+w 		#write changes to the disk
+
+lsblk		#confirm that you created proper partitions
 ```
+#Format partitions
+```
+mkfs.vfat /dev/sda1		#format UEFI partition
+mkswap /dev/sda2		#format swap partition
+swapon /dev/sda2		#activate swap
+mkfs.ext4 /dev/sda3		#format root partition
+```
+
+
+
