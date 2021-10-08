@@ -91,3 +91,44 @@ pacstrap /mnt base linux linux-firmware git nano intel-ucode		#or type amd-ucode
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
 # Now the installation
+```
+arch-chroot /mnt
+timedatectl list-timezones | grep Toronto	#find the closest timezone
+ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime	#save local timezone
+hwclock --systohc		#synchronize hardware clock with system
+nano /etc/locale.gen		#find and uncomment en_US.UTF-8 UTF-8
+locale-gen			#generate locale
+nano /etc/locale.conf		#type in LANG=en_US.UTF-8, then save and close
+nano /etc/vconsole.conf		#add KEYMAP=ru (do it if you added keymap in the beginning)
+nano /etc/hostname		#type in any name for host machine
+nano /etc/hosts			
+#add following lines
+127.0.0.1	localhost
+::1		localhost
+127.0.1.1	hostname.localdomain	hostname	#replace hostname with the name you used
+#save and exit
+passwd		#enter the password for root user
+# remove the tlp package if installing on a desktop or vm
+pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio pulseaudio-bluetooth bash-completion openssh rsync  acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font
+pacman -S xf86-video-amdgpu
+#if nvidia, pacman -S install nvidia nvidia-utils nvidia-settings
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+systemctl enable NetworkManager
+systemctl enable bluetooth
+systemctl enable cups.service
+systemctl enable sshd
+systemctl enable avahi-daemon
+systemctl enable tlp 	#comment this command out if you didn't install tlp, see above
+systemctl enable reflector.timer
+systemctl enable fstrim.timer
+systemctl enable libvirtd
+systemctl enable firewalld
+systemctl enable acpid
+useradd -mG wheel edd	#change edd to the preferred username
+passwd edd 		#enter the password for the user
+EDITOR=nano visudo	#find and uncomment %wheel ALL=(ALL) ALL, save and exit
+exit
+umount -a
+reboot			#change in bios to load from the drive, not iso
+```
