@@ -126,10 +126,17 @@ nano /etc/hosts
 
 passwd		#enter the password for root user
 
+# install yay aur helper
+git clone https://aur.archlinux.org/yay.git
+cd yay/
+makepkg -si
+
 # remove the tlp package if installing on a desktop or vm
-pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio pulseaudio-bluetooth bash-completion openssh rsync  acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font playerctl scrot tar zip unzip unrar
+pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsamixer alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-jack bash-completion openssh rsync acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font playerctl scrot tar zip unzip unrar rofi vlc
 
 pacman -S xf86-video-amdgpu		#if nvidia, pacman -S install nvidia nvidia-utils nvidia-settings
+
+yay -S jq ttf-weather-icons masterpdfeditor-free polybar
 
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 
