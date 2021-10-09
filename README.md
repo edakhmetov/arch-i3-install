@@ -197,6 +197,21 @@ sudo firewall-cmd --add-port=1025-65535/udp --permanent
 
 sudo firewall-cmd --reload
 
+# add tap to click and natural scrolling for touchpad
+sudo mkdir -p /etc/X11/xorg.conf.d
+
+sudo nano /etc/X11/xorg.conf.d/90-touchpad.conf
+
+# enter the following
+Section "InputClass"
+	Identifier "touchpad"
+	MatchIsTouchpad "on"
+	Driver "libinput"
+	Option "Tapping" "on"
+	Option "NaturalScrolling" "on"
+EndSection
+# save and exit
+
 sudo pacman -S xf86-video-intel xf86-video-amdgpu xorg i3-gaps i3blocks i3lock i3status dmenu lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings firefox nitrogen picom lxappearance thunar material-gtk-theme papirus-icon-theme xfce4-terminal gimp neofetch htop
 
 sudo pacman -S dina-font tamsyn-font bdf-unifont ttf-bitstream-vera ttf-croscore ttf-dejavu ttf-droid gnu-free-fonts ttf-ibm-plex ttf-liberation ttf-linux-libertine noto-fonts ttf-roboto tex-gyre-fonts ttf-ubuntu-font-family ttf-anonymous-pro ttf-cascadia-code ttf-fantasque-sans-mono ttf-fira-mono ttf-hack ttf-fira-code ttf-inconsolata ttf-jetbrains-mono ttf-monofur adobe-source-code-pro-fonts cantarell-fonts inter-font ttf-opensans gentium-plus-font ttf-junicode adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts noto-fonts-cjk noto-fonts-emoji
