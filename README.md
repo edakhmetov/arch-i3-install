@@ -37,7 +37,7 @@ reflector -c Canada -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syy
 ```
 # Disk partitioning
-Using gdisk, create uefi partition, swap partition, and root partition
+Using gdisk, create uefi partition, swap partition, root partition, and home partition
 ```
 lsblk	#get the disk name, which will be used in next steps
 
@@ -59,12 +59,19 @@ ef00			#partition type code (ef00 for UEFI)
 +4G		#4gb swap
 8200		#8200 for linux swap
 
-# creating root partition (accept all defaults if this is the last partition)
+# creating root partition
+
+[default]
+[default]
++40G		#40Gb, change if you want more or less
+[default]	#8300 for linux filesystem
+
+# creating home partition
 
 [default]
 [default]
 [default]	#takes all of the remaining space
-[default]	#8300 for linux filesystem
+[default]
 
 w 		#write changes to the disk
 
@@ -79,6 +86,8 @@ mkswap /dev/sda2		#format swap partition
 swapon /dev/sda2		#activate swap
 
 mkfs.ext4 /dev/sda3		#format root partition
+
+mkfs.ext4 /dev/sda4		#format home partition
 ```
 # Mount Partitions
 ```
@@ -87,6 +96,10 @@ mount /dev/sda3 /mnt		#mount root directory
 mkdir -p /mnt/boot/efi		#create boot directory
 
 mount /dev/sda1 /mnt/boot/efi	#mount boot directory
+
+mkdir /mnt/home			#create home directory
+	
+mount /dev/sda4 /mnt/home	#mount home partition
 ```
 # Install base system
 ```
@@ -168,15 +181,25 @@ systemctl enable firewalld
 
 systemctl enable acpid
 
-useradd -mG wheel edd	#change edd to the preferred username
+#useradd -mG wheel edd	#old way, change edd to the preferred username
 
-passwd edd 		#enter the password for the user
+useradd -m edd
 
-EDITOR=nano visudo	#find and uncomment %wheel ALL=(ALL) ALL, save and exit
+passwd edd		#enter the password for the user
+
+usermod -aG libvirt edd
+
+#EDITOR=nano visudo	#old way, find and uncomment %wheel ALL=(ALL) ALL, save and exit
+
+echo "edd ALL=(ALL) ALL" >> /etc/sudoers.d/edd
+
+nano /etc/mkinitcpio.conf	#add greaphic cards to MODULES (i915 for intel, amdgpu for amd, nvidia), can add multiple
+
+mkinitcpio -p linux
 
 exit
 
-umount -a
+umount -R /mnt
 
 reboot			#change in bios to load from the drive, not iso
 ```
