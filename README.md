@@ -237,7 +237,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay/
 makepkg -si
 
-yay -S jq ttf-weather-icons masterpdfeditor-free polybar ttf-iosevka-term ttf-iosevka polybar
+yay -S jq ttf-weather-icons masterpdfeditor-free polybar ttf-iosevka-term ttf-iosevka polybar otf-nerd-fonts-fira-code siji-git
 
 sudo systemctl enable lightdm
 
