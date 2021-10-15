@@ -139,17 +139,10 @@ nano /etc/hosts
 
 passwd		#enter the password for root user
 
-# install yay aur helper
-git clone https://aur.archlinux.org/yay.git
-cd yay/
-makepkg -si
-
 # remove the tlp package if installing on a desktop or vm
-pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsamixer alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-jack bash-completion openssh rsync acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font playerctl scrot tar zip unzip unrar rofi vlc xrandr
+pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-jack bash-completion openssh rsync acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font playerctl scrot zip unzip unrar rofi vlc
 
 pacman -S xf86-video-amdgpu		#if nvidia, pacman -S install nvidia nvidia-utils nvidia-settings
-
-yay -S jq ttf-weather-icons masterpdfeditor-free polybar
 
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 
@@ -235,9 +228,16 @@ Section "InputClass"
 EndSection
 # save and exit
 
-sudo pacman -S xf86-video-intel xf86-video-amdgpu xorg i3-gaps i3blocks i3lock i3status dmenu lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings firefox nitrogen picom lxappearance thunar material-gtk-theme papirus-icon-theme xfce4-terminal gimp neofetch htop
+sudo pacman -S xf86-video-intel xf86-video-amdgpu xorg i3-gaps i3blocks i3lock i3status dmenu lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings firefox nitrogen picom lxappearance thunar papirus-icon-theme xfce4-terminal gimp neofetch htop dunst
 
 sudo pacman -S dina-font tamsyn-font bdf-unifont ttf-bitstream-vera ttf-croscore ttf-dejavu ttf-droid gnu-free-fonts ttf-ibm-plex ttf-liberation ttf-linux-libertine noto-fonts ttf-roboto tex-gyre-fonts ttf-ubuntu-font-family ttf-anonymous-pro ttf-cascadia-code ttf-fantasque-sans-mono ttf-fira-mono ttf-hack ttf-fira-code ttf-inconsolata ttf-jetbrains-mono ttf-monofur adobe-source-code-pro-fonts cantarell-fonts inter-font ttf-opensans gentium-plus-font ttf-junicode adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts noto-fonts-cjk noto-fonts-emoji
+
+# install yay aur helper
+git clone https://aur.archlinux.org/yay.git
+cd yay/
+makepkg -si
+
+yay -S jq ttf-weather-icons masterpdfeditor-free polybar ttf-iosevka-term ttf-iosevka polybar
 
 sudo systemctl enable lightdm
 
